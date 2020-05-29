@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+    <title>Pallet Town</title>
+    
+    <style>
+	
+	body {
+		background: url("images/tall_grass.gif") center center fixed;
+		background-size: cover;
+	}
+	h1 {
+		color: #FFCB05;
+		font-weight: bold;
+		background-color: #00C;
+		margin-right: 500px;
+	}
+	
+	#form {
+		text-align: center;	
+	}
+	
+	</style>
+    
+    <script>
+
+	atk = 0;
+	hp = 0;
+	var bg = "pallet";
+	
+	function catchPkmn() {
+		
+		var enc = Math.floor((Math.random() * 20) + 0);
+		if (enc == 0 || enc == 7) {	
+			pkmnEnc = "Gardevoir";
+			atk = 50;
+			hp = 90;
+		}
+		else if (enc == 1 || enc == 14) {
+			pkmnEnc = "Leafeon";
+			atk = 40;
+			hp = 100;
+		}
+		else if (enc == 2|| enc == 3|| enc == 4|| enc == 5 || enc == 6) {
+			pkmnEnc = "Oddish";
+			atk = 20;
+			hp = 60;	
+		}
+		else if (enc == 8|| enc == 9|| enc == 10 || enc == 11|| enc == 12 || enc == 13) {
+			pkmnEnc = "Pidgey";
+			atk = 10;
+			hp = 55;
+		}
+		else if (enc == 15 || enc == 16 || enc == 17 || enc == 18 || enc == 19 || enc == 20) {
+			pkmnEnc = "Ratatta";
+			atk = 10;
+			hp = 55;
+		}
+
+		setTimeout(battle, 3000);		
+		
+	}
+	
+	function battle() {
+		sessionStorage.setItem("wildPkmn", pkmnEnc);
+		sessionStorage.setItem("wildAtk", atk);
+		sessionStorage.setItem("wildHp", hp);
+		sessionStorage.setItem("background", bg);
+		
+		location = "battle.html";
+
+	}
+	
+	</script>
+</head>
+
+<body id="catch">
+	
+	<h1 id="form">You hear rustling noises coming from the tall grass...</h1>
+    
+    
+	
+</body>
+
+</html>
+
+<script>
+
+	setTimeout(catchPkmn, 3000);
+
+</script>

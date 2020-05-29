@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+    <title>Intro</title>
+    
+    <style>
+
+	body {
+		background: url("images/start.png") center center fixed;
+		background-size: cover;
+	}
+	
+	#logo {
+		display: block;
+		margin-right: auto;
+		margin-left: auto;
+		padding: 20px;
+	}
+
+	#instructions {
+		float: right;
+		width: 55%;
+		font-size: 24px;
+		line-height: 200%;
+		margin-right: 50px;
+	}
+	</style>
+    
+    <script>
+
+	var i = 0;
+	var txt = "Welcome to the world of Pokemon, Trainer! My name is Professor Tina and this is my friend Abra! Your role here is to fill your party (of 6 pokemon total) and defeat the leader of team rocket, Giovanni. The only way you can beat him is in battle! You can find him at his pokemon gym in Vermillion City! Please tap on Abra to start on your adventure. Good luck!";
+	var speed = 30;
+
+		function typeWriter() {
+  			if (i < txt.length) {
+    			document.getElementById("instructions").innerHTML += txt.charAt(i);
+    			i++;
+    			setTimeout(typeWriter, speed);
+  			}	
+		}
+		
+	</script>
+</head>
+
+<body>
+
+	<img src = 'images/pkmn_logo.png' id="logo" width = '500' alt = 'Pokemon logo'>
+	
+    <div id="container">
+    
+	<img src="images/professor.png" width="250px" alt="This is your pokemon professor">
+    <a href = 'start.html'> <img src="images/abra.gif" width="250px" alt="The professors Abra"></a>
+    <p id="instructions"></p>
+    
+    
+    </div>
+    
+</body>
+
+</html>
+
+<script>
+	typeWriter();
+</script>

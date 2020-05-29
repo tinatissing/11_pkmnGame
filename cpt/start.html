@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+    <title>Pkmn</title>
+    
+    <style>
+	body {
+		background: url("images/start.png") center center fixed;
+		background-size: cover;
+	}
+	h1, p, #form {
+		color: #FFCB05;
+	}
+	#play {
+		font-size: 30px;
+		text-align: center;
+	}
+	h1 {
+		text-align: center;
+	}
+	.center {
+		display: block;
+		margin-right: auto;
+		margin-left: auto;
+		padding: 20px;
+	}
+	#pkb {
+		display:flex;
+		flex-direction:row;
+		flex-wrap: no wrap;
+		justify-content: space-evenly;
+		align-content: flex-start;
+	}
+	.button {
+		font-size: 25px;
+		background-color: #FFCB05;
+		color: #00C;
+	}
+	.button:hover {
+		background-color: #00C;
+		color: #FFCB05;	
+	}
+	</style>
+    
+    <script>
+	
+	function starterp() {
+		
+		var name = document.starterPkmn.trainerName.value;
+		sessionStorage.setItem("trainerName", name);
+
+		if (document.getElementById("chimchar").checked) {
+			var starter = "Chimchar";	
+		}
+		else if (document.getElementById("piplup").checked) {
+			var starter = "Piplup";
+		}
+		else if (document.getElementById("turtwig").checked) {
+			var starter = "Turtwig";	
+		}
+		
+		sessionStorage.setItem("starterPkmn", starter);
+		
+		document.getElementById("play").innerHTML = "<p>Amazing choice! " + starter + " is an fantastic partner to have by your side on your adventure. You're finally ready to start on your journey, " + name + "! </p><img src = 'images/" + starter + ".gif' width = '500px' alt = 'Your new companion!'>";
+		
+		setTimeout(func, 3000);
+		
+		return false;
+	}
+	
+	function func() {
+		
+		location="travel.html";
+		
+	}
+
+	
+	function displayImg() {
+		if (document.getElementById("chimchar").checked) {
+			document.getElementById("pkmn1").innerHTML = "<img src = 'images/Chimchar.gif' width = '300px' alt = 'Chimchar, a fire type pokemon.'>";
+			document.getElementById("pkmn2").innerHTML = "<img src = 'images/pokeball.png' width = '250px' alt='A pokeball.'>";
+			document.getElementById("pkmn3").innerHTML = "<img src = 'images/pokeball.png' width = '250px' alt='A pokeball.'>";
+		}
+		else if (document.getElementById("piplup").checked) {
+			document.getElementById("pkmn2").innerHTML = "<img src = 'images/Piplup.gif' width = '300px' alt = 'Piplup, a water type pokemon.'>";
+			document.getElementById("pkmn1").innerHTML = "<img src = 'images/pokeball.png' width = '250px' alt='A pokeball.'>";
+			document.getElementById("pkmn3").innerHTML = "<img src = 'images/pokeball.png' width = '250px' alt='A pokeball.'>";
+		}
+		else if (document.getElementById("turtwig").checked) {
+			document.getElementById("pkmn3").innerHTML = "<img src = 'images/Turtwig.gif' width = '300px' alt = 'Turtwig, a grass type pokemon.'>";
+			document.getElementById("pkmn2").innerHTML = "<img src = 'images/pokeball.png' width = '250px' alt='A pokeball.'>";
+			document.getElementById("pkmn1").innerHTML = "<img src = 'images/pokeball.png' width = '250px' alt='A pokeball.'>";
+		}
+	}
+	
+	</script>
+</head>
+
+<body>
+
+   	<img src = 'images/pkmn_logo.png' width = '500' alt = 'Pokemon logo' class="center">
+    
+    <div id="play">
+
+		<form name="starterPkmn" method="post" id="form" onSubmit="return starterp()">
+    
+    	<p><label for="theName">What is your name, Trainer?</label>
+    	    <input type="text" name="trainerName" id="theName" autofocus required>
+    	</p>
+    
+    	    <p>Pick your starter pokemon.</p>
+    	    <input type="radio" id="chimchar" name="starter" value="chimchar" onchange="displayImg()" required>Chimchar
+    	    <input type="radio" id="piplup" name="starter" value="piplup" onchange="displayImg()">Piplup
+    	    <input type="radio" id="turtwig" name="starter" value="turtwig" onchange="displayImg()">Turtwig
+    	    <!-- I know they're not the starter pokemon for the region the adventure takes place in but I'm such a sucker for Sinnoh starters...-->
+            <div id="pkb">
+            <p id = "pkmn1"><img src = "images/pokeball.png" width = "250px" alt="A pokeball."></p>
+            <p id = "pkmn2"><img src = "images/pokeball.png" width = "250px" alt="A pokeball."></p>
+            <p id = "pkmn3"><img src = "images/pokeball.png" width = "250px" alt="A pokeball."></p>
+            </div>
+            
+        	<button type="submit" class="button">I'm sure!</button>
+            
+		</form>
+    
+    </div>
+	
+</body>
+
+</html>

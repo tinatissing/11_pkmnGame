@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+    <title>Battle!</title>
+    
+    <style>
+		
+	body {
+		background: url("images/start.png") center center fixed;
+		background-size: cover;	
+		color: #FFCB05;
+		font-weight: bold;
+	}
+	#flex {
+		display:flex;
+		flex-direction:row;
+		flex-wrap: no wrap;
+		justify-content: space-evenly;
+		align-content: flex-start;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	#text {
+		color: FFCB05;
+		background-color: #00C;	
+		padding: 15px;
+		margin-top: 50px;
+	}
+	#numHp {
+		color: #000;
+		font-size: 20px;
+		font-family: Arial, Helvetica, sans-serif;	
+	}
+	</style>
+    
+    <script>
+	
+	var name = sessionStorage.getItem("trainerName");
+	
+	var party1 = sessionStorage.getItem("pkmn1");
+	var atk1 = sessionStorage.getItem("pkmn1Atk");
+	var hp1 = sessionStorage.getItem("pkmn1Hp");
+	
+	var party2 = sessionStorage.getItem("pkmn2");
+	var atk2 = sessionStorage.getItem("pkmn2Atk");
+	var hp2 = sessionStorage.getItem("pkmn2Hp");
+
+	var party3 = sessionStorage.getItem("pkmn3");
+	var atk3 = sessionStorage.getItem("pkmn3Atk");
+	var hp3 = sessionStorage.getItem("pkmn3Hp");
+
+	var party4 = sessionStorage.getItem("pkmn4");
+	var atk4 = sessionStorage.getItem("pkmn4Atk");
+	var hp4 = sessionStorage.getItem("pkmn4Hp");
+
+	var party5 = sessionStorage.getItem("pkmn5");
+	var atk5 = sessionStorage.getItem("pkmn5Atk");
+	var hp5 = sessionStorage.getItem("pkmn5Hp");
+
+	var atk0 = 25;
+	var hp0 = 70;	
+	
+	var starter = sessionStorage.getItem("starterPkmn");
+	var wildPkmn = sessionStorage.getItem("wildPkmn");
+	var wAtk = sessionStorage.getItem("wildAtk");
+	var newAtk = sessionStorage.getItem("wildAtk");
+	var wHp = sessionStorage.getItem("wildHp");
+	var newHp = sessionStorage.getItem("wildHp");
+	
+	var catchChance = sessionStorage.getItem("wildHp");
+	
+	var party = [starter, party1, party2, party3, party4, party5];
+	var atk = [atk0, atk1, atk2, atk3, atk4, atk5];
+	var hp = [hp0, hp1, hp2, hp3, hp4, hp5];
+	
+	var bPkmn = "";
+	var y = 0;
+	var a = 0;
+	
+	function pkmnDrop() {
+				
+		var pkmnDropOut = "<select name='pkmn'>";
+		
+		var x=0;
+	 	for (x=0; x < party.length; x++) {
+			if (party[x] != null) {
+				pkmnDropOut += "<option value='" + party[x] + "'>" + party[x] + "</option>";
+		 	}
+		}
+		
+		pkmnDropOut += "</select>";
+		
+		document.getElementById("pkmnDrop").innerHTML = pkmnDropOut;
+		
+		
+				
+		document.getElementById("wHp").innerHTML = "<img src = 'images/hp.png' width = '50px' height = '50px' alt = 'Health Points'>"
+		document.getElementById("wildHp").innerHTML = "<img src = 'images/hpBar.png' width = '" + wHp*4 + "' height = '30px' alt = 'The wild pokemon's hp'>"
+		document.getElementById("numHp").innerHTML = wHp;
+		document.getElementById("wild").innerHTML = "<img src = 'images/" + wildPkmn + ".gif' width = '300' alt = 'Wild pokemon!'>"
+		
+		return false;
+	}
+	
+	function pkmnBattle() {
+		
+		bPkmn = document.battle.pkmn.value;	
+		
+		for (y=0; y < party.length; y++) {
+			
+			if (bPkmn == party[y]) {
+				
+				wHp = wHp - atk[y];
+				hp[y] = hp[y] - wAtk;
+				
+				document.getElementById("hp").innerHTML = "<img src = 'images/hp.png' width = '50px' height = '50px' alt = 'Health Points'>"
+				document.getElementById("userHp").innerHTML = "<img src = 'images/hpBar.png' width = '" + hp[y]*4 + "' height = '30px' alt = 'Your pokemon's hp'>"
+				document.getElementById("user").innerHTML = "<img src = 'images/" + bPkmn + ".gif' width = '300px' alt = 'Your pokemon!'>"
+				
+				document.getElementById("wHp").innerHTML = "<img src = 'images/hp.png' width = '50px' height = '50px' alt = 'Health Points'>"
+				document.getElementById("wildHp").innerHTML = "<img src = 'images/hpBar.png' width = '" + wHp*4 + "' height = '30px' alt = 'The wild pokemon's hp'>"
+				document.getElementById("numHp").innerHTML = wHp;
+				document.getElementById("wild").innerHTML = "<img src = 'images/" + wildPkmn + ".gif' width = '300px' alt = 'Wild pokemon!'>"
+				
+				
+				if (hp[y] <= 0) {
+					document.getElementById("result").innerHTML = "<img src='images/fainted.jpeg' width='100%' alt='Your pokemon has fainted!'>";
+					setTimeout(func, 3000);	
+				}
+				
+		 	}
+		}
+		
+		if (wHp <= 0) {
+			
+			document.getElementById("result").innerHTML = "<img src='images/opp_faint.jpeg' width='100%' alt='The wild pokemon has fainted!'>";
+			setTimeout(func, 3000);
+		}	
+
+		return false;
+	}
+	
+	function pkmnCatch() {
+		
+		if (party[5] != null) {
+			document.getElementById("result").innerHTML = "<p>You cannot have more than 6 pokemon in your party! You are ready to go face the Gym Leader Giovanni!</p>";
+			document.getElementById("result").style.backgroundColor = "#00C";
+			setTimeout(func, 3000);
+		} 
+		
+		var hpX = wHp/catchChance*100;
+		var hpY = 100-hpX; 
+		var chance = Math.floor((Math.random() * 100) + 0);
+		
+		if (hpY>=chance) {
+			a = 0;
+			while(a<6) {
+				if (party[a] == null) {
+					party[a] = wildPkmn;
+					atk[a] = newAtk;
+					hp[a] = newHp;
+					
+					if (a == 1) {
+						party1 = sessionStorage.setItem("pkmn1", party[a]);
+						atk1 = sessionStorage.setItem("pkmn1Atk", atk[a]);
+						hp1 = sessionStorage.setItem("pkmn1Hp", hp[a]);
+						a = 10;
+					}
+					else if (a == 2) {
+						party2 = sessionStorage.setItem("pkmn2", party[a]);
+						atk2 = sessionStorage.setItem("pkmn2Atk", atk[a]);
+						hp2 = sessionStorage.setItem("pkmn2Hp", hp[a]);
+						a = 10;
+					}
+					else if (a == 3) {
+						party3 = sessionStorage.setItem("pkmn3", party[a]);
+						atk3 = sessionStorage.setItem("pkmn3Atk", atk[a]);
+						hp3 = sessionStorage.setItem("pkmn3Hp", hp[a]);
+						a = 10;
+					}
+					else if (a == 4) {
+						party4 = sessionStorage.setItem("pkmn4", party[a]);
+						atk4 = sessionStorage.setItem("pkmn4Atk", atk[a]);
+						hp4 = sessionStorage.setItem("pkmn4Hp", hp[a]);
+						a = 10;
+					}
+					else if (a == 5) {
+						party5 = sessionStorage.setItem("pkmn5", party[a]);
+						atk5 = sessionStorage.setItem("pkmn5Atk", atk[a]);
+						hp5 = sessionStorage.setItem("pkmn5Hp", hp[a]);
+						a = 10;
+					}
+					
+					document.getElementById("wild").innerHTML = '<img src="images/pokeball.png" width="300px" alt="You catch it!">';	
+					setTimeout(func, 3000);
+				}
+			a++;
+			}
+		}
+		else {
+			document.getElementById("result").innerHTML = "<p>The wild Pokemon ran away!</p>";	
+			setTimeout(func, 3000);
+		}
+		
+		return false;
+	}
+	
+	function func() {
+		window.location = "travel.html";	
+	}
+	
+	</script>
+</head>
+
+<body id="result">
+	
+    <div id="flex">
+    <p id="hp"></p>
+    <p id="userHp"></p>
+    <p id="user"></p>
+
+	<p id="wHp"></p>
+	<p id="wildHp"></p>
+    <p id="numHp"></p>
+    <p id="wild"></p>
+    </div>
+    
+    <div id="text">
+	<form name="battle" method="post" onSubmit="return pkmnBattle()">
+    
+    <p>Who is going to attack?</p>
+	<label for="bPkmn">Which Pokemon do you want to send out?</label>
+    <span id="pkmnDrop"></span>
+    
+    <button type="submit">Attack!</button>
+    </form>
+    
+    <form name="catch" method="post" onSubmit="return pkmnCatch()">
+    <button type="submit">Try to catch this Pokemon?</button>
+	</form>
+    </div>
+    
+</body>
+
+</html>
+
+<script>
+
+	pkmnDrop();
+
+</script>

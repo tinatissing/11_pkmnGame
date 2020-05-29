@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+    <title>Battle!</title>
+    
+    <style>
+		
+	body {
+		background: url("images/rocket.png") center center fixed;
+		background-size: cover;	
+		font-weight: bold;
+	}
+	#flex {
+		display:flex;
+		flex-direction:row;
+		flex-wrap: no wrap;
+		justify-content: space-evenly;
+		align-content: flex-start;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	#text {
+		color: FFCB05;
+		background-color: #C00;	
+		padding: 15px;
+		margin-top: 250px;
+	}
+	#numHp {
+		color: #FFF;
+		font-size: 20px;
+		font-family: Arial, Helvetica, sans-serif;	
+	}
+	
+	</style>
+    
+    <script>
+	
+	var name = sessionStorage.getItem("trainerName");
+	
+	var party1 = sessionStorage.getItem("pkmn1");
+	var atk1 = sessionStorage.getItem("pkmn1Atk");
+	var hp1 = sessionStorage.getItem("pkmn1Hp");
+	
+	var party2 = sessionStorage.getItem("pkmn2");
+	var atk2 = sessionStorage.getItem("pkmn2Atk");
+	var hp2 = sessionStorage.getItem("pkmn2Hp");
+
+	var party3 = sessionStorage.getItem("pkmn3");
+	var atk3 = sessionStorage.getItem("pkmn3Atk");
+	var hp3 = sessionStorage.getItem("pkmn3Hp");
+
+	var party4 = sessionStorage.getItem("pkmn4");
+	var atk4 = sessionStorage.getItem("pkmn4Atk");
+	var hp4 = sessionStorage.getItem("pkmn4Hp");
+
+	var party5 = sessionStorage.getItem("pkmn5");
+	var atk5 = sessionStorage.getItem("pkmn5Atk");
+	var hp5 = sessionStorage.getItem("pkmn5Hp");
+
+	var atk0 = 25;
+	var hp0 = 70;	
+	
+	var starter = sessionStorage.getItem("starterPkmn");
+	var oppPkmn = sessionStorage.getItem("opponentPkmn");
+	var oppAtk = sessionStorage.getItem("opponentAtk");
+	var oppHp = sessionStorage.getItem("opponentHp");
+	
+	var party = [starter, party1, party2, party3, party4, party5];
+	var atk = [atk0, atk1, atk2, atk3, atk4, atk5];
+	var hp = [hp0, hp1, hp2, hp3, hp4, hp5];
+	
+	var bPkmn = "";
+	var a = 0;
+	
+	function pkmnDrop() {
+				
+		var pkmnDropOut = "<select name='pkmn'>";
+		
+		var x=0;
+	 	for (x=0; x < party.length; x++) {
+			if (party[x] != null) {
+				pkmnDropOut += "<option value='" + party[x] + "'>" + party[x] + "</option>";
+		 	}
+		}
+		
+		pkmnDropOut += "</select>";
+		
+		document.getElementById("pkmnDrop").innerHTML = pkmnDropOut;
+
+		document.getElementById("oppHp").innerHTML = "<img src = 'images/hpBar.png' width = '" + oppHp*4 + "' height = '30px' alt = 'Giovanni's pokemon's hp'>"
+		document.getElementById("numHp").innerHTML = oppHp;
+		document.getElementById("oppPkmn").innerHTML = "<img src = 'images/" + oppPkmn + ".gif' width = '300' alt = 'Giovanni's pokemon!'>"
+		return false;
+	}
+	
+	function pkmnBattle() {
+		
+		bPkmn = document.battle.pkmn.value;	
+		var y = 0;
+		
+		for (y=0; y < party.length; y++) {
+			
+			if (bPkmn == party[y]) {
+				
+								
+				oppHp = oppHp - atk[y];
+				hp[y] = hp[y] - oppAtk;
+				
+				document.getElementById("userHp").innerHTML = "<img src = 'images/hpBar.png' width = '" + hp[y]*4 + "' height = '30px' alt = 'Your pokemon's hp'>";
+				document.getElementById("user").innerHTML = "<img src = 'images/" + bPkmn + ".gif' width = '300px' alt = 'Your pokemon!'>";
+				
+				document.getElementById("oppHp").innerHTML = "<img src = 'images/hpBar.png' width = '" + oppHp*4 + "' height = '30px' alt = 'The wild pokemon's hp'>";
+				document.getElementById("numHp").innerHTML = oppHp;
+				document.getElementById("oppPkmn").innerHTML = "<img src = 'images/" + oppPkmn + ".gif' width = '300px' alt = 'Giovanni's pokemon!'>";	
+				
+				if (hp[y] <= 0) {
+					document.getElementById("result").innerHTML = "<img src='images/fainted.jpeg' width='100%' alt='Your pokemon has fainted!'>"
+					setTimeout(func, 3000);	
+				}
+				
+		 	}
+		}
+		
+		if (oppHp <= 0) {
+			
+			win();
+		}	
+
+		return false;
+	}
+	
+	function win() {
+		window.location = "winner.html";	
+		//Change to win.html to see the better end screen.
+	}
+	
+	function func() {
+		window.location = "travel.html";	
+	}
+	
+	</script>
+</head>
+
+<body id="result">
+	
+    <div id="flex">
+    <p id="hp"></p>
+    <p id="userHp"></p>
+    <p id="user"></p>
+
+	<p id="aiHp"></p>
+	<p id="oppHp"></p>
+    <p id="numHp"></p>
+    <p id="oppPkmn"></p>
+    </div>
+    
+    <div id="text">
+	<form name="battle" method="post" onSubmit="return pkmnBattle()">
+    
+    <p>Who is going to attack?</p>
+	<label for="bPkmn">Which Pokemon do you want to send out?</label>
+    <span id="pkmnDrop"></span>
+    
+    <button type="submit">Attack!</button>
+    </form>
+
+    </div>
+    
+</body>
+
+</html>
+
+<script>
+
+	pkmnDrop();
+
+</script>

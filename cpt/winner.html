@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+    <title>Winner!</title>
+    
+    <style>
+
+	body {
+		background: url("images/stadium.png") center center fixed;
+		background-size: cover;
+	}
+	
+	#team1, #team2 {
+		display:flex;
+		flex-direction:row;
+		flex-wrap: no wrap;
+		justify-content: space-evenly;
+		align-content: flex-start;
+	}
+	
+	#logo {
+		display: block;
+		margin-right: auto;
+		margin-left: auto;
+		padding: 20px;
+	}
+	
+	h1 {
+		text-align: center;
+		font-size: 100px;
+		font-weight: bold;
+		color: #FFCB05;
+	}
+	
+	#logo {
+		margin-left: auto;
+		margin-right: auto;	
+	}
+	
+	#again {
+		color: #FFCB05;
+		background-color: #00C;
+		font-size: 24px;
+		font-family: Arial, Helvetica, sans-serif;
+		margin-right: 800px;
+	}
+	
+	</style>
+    
+    <script>
+	
+	var starter = sessionStorage.getItem("starterPkmn");
+	
+	var party1 = sessionStorage.getItem("pkmn1");
+	var party2 = sessionStorage.getItem("pkmn2");
+	var party3 = sessionStorage.getItem("pkmn3");
+	var party4 = sessionStorage.getItem("pkmn4");
+	var party5 = sessionStorage.getItem("pkmn5");
+
+	function party() {
+	
+	document.getElementById("winner").innerHTML = "<a href = 'start.html'><img src = 'images/pkmn_logo.png' id='logo' width = '500' alt = 'Pokemon logo'></a>";
+	document.getElementById("pkmn0").innerHTML = '<img src="images/' + starter + '.gif" width="250px" alt="Your starter!">';
+	document.getElementById("pkmn1").innerHTML = '<img src="images/' + party1 + '.gif" width="250px" alt="' + party1 + '">';
+	document.getElementById("pkmn2").innerHTML = '<img src="images/' + party2 + '.gif" width="250px" alt="'+ party2 + '">';
+	document.getElementById("pkmn3").innerHTML = '<img src="images/' + party3 + '.gif" width="250px" alt="' + party3 + '">';
+	document.getElementById("pkmn4").innerHTML = '<img src="images/' + party4 + '.gif" width="250px" alt="' + party4 + '">';
+	document.getElementById("pkmn5").innerHTML = '<img src="images/' + party5 + '.gif" width="250px" alt="' + party5 + '">';
+	
+	}
+	
+	</script>
+
+</head>
+
+<body>
+
+<div id="winner">
+<h1>You win!</h1>
+</div>
+
+<div id="team1">
+<p id="pkmn0"></p>
+<p id="pkmn1"> </p>
+<p id="pkmn2"> </p>
+</div>
+
+<div id="team2">
+<p id="pkmn3"> </p>
+<p id="pkmn4"> </p>
+<p id="pkmn5"> </p>
+</div>
+
+</body>
+    
+</head>
+
+<script>
+	setTimeout (party, 4000);
+</script>

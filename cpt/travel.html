@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+    <title>Travel</title>
+    
+    <style>
+	body {
+		background: url("images/map.jpeg") center center fixed;
+		background-size: cover;
+	}
+	#travel {
+		display:flex;
+		flex-direction:row;
+		flex-wrap: no wrap;
+		justify-content: space-evenly;
+		align-content: flex-start;
+		color: #FFCB05;
+		font-weight: bold;
+		background-color: #00C;
+		font-size: 40px;
+	}
+	.button:hover {
+		color: #FFCB05;
+		background-color: #00C;
+	}
+	.button {
+		background-color: #FFCB05;
+		color: #00C;
+		font-size: 30px;
+	}
+	</style>
+    
+    <script>
+
+	var party5 = sessionStorage.getItem("pkmn5");
+	
+	function travel() {
+		
+		if (document.getElementById("pallet").checked) {
+			location = "pallet.html";	
+		}
+		else if (document.getElementById("pewter").checked) {
+			location = "pewter.html";
+		}
+		else if (document.getElementById("cerulean").checked) {
+			location = "cerulean.html";
+		}
+		else if (document.getElementById("vermillion").checked) {
+			if (party5 == null) {
+				alert("You do not have a full party. The gym is closed to you.");
+			}
+			else {
+				battle();
+			}
+		}
+		
+		return false;
+		
+	}
+	
+	function battle() {
+		var ai = Math.floor((Math.random()* 3) + 1);
+			if (ai == 1) {
+				oppPkmn = "Rhydon";
+				oppAtk = 20;
+				oppHp = 200;
+			}
+			else if (ai == 2) {
+				oppPkmn = "Nidoking";
+				oppAtk = 30;
+				oppHp = 180;
+			}
+			else if (ai == 3) {
+				oppPkmn = "Nidoqueen";
+				oppAtk = 25;
+				oppHp = 190;
+			}
+			sessionStorage.setItem("opponentPkmn", oppPkmn);
+			sessionStorage.setItem("opponentAtk", oppAtk);
+			sessionStorage.setItem("opponentHp", oppHp);
+			window.location = "vermillion.html";
+	}
+	
+	</script>
+</head>
+
+<body>
+	
+    <div id="travel">
+	<form name="city" method="post" onSubmit="return travel()">
+    
+    	    <input type="radio" id="pallet" name="city" value="pallet" required>Pallet Town
+    	    <input type="radio" id="pewter" name="city" value="pewter">Pewter City
+            <input type="radio" id="cerulean" name="city" value="cerulean">Cerulean City
+            <input type="radio" id="vermillion" name="city" value="vermillion">Vermillion City
+            
+        	<button type="submit" class="button">Let's Go!</button>
+            
+	</form>
+	</div>
+    
+</body>
+
+</html>
